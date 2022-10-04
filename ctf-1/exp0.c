@@ -12,7 +12,8 @@
 
 /* FIXME */
 unsigned char payload[] =
-	"";
+	"HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA";
+	//
 
 int
 main(int argc, char **argv)
