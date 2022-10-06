@@ -10,28 +10,46 @@
 
 --[ 0x0 whoami
 
-Name:		Brown Hat
-Login:		xyzzy
-Hostname:	cslab##
+Name:		Ed Bielawa
+Login:		ebielawa
+Hostname:	cslab1b
 
 --[ 0x1 Flag 1
+No comments
 
 
 --[ 0x2 Flag 2
+No comments
 
 
 --[ 0x3 Flag 3
+Extra credit attempted: making the payload stack independent.
+I noticed the inputted parameter was being checked by invoking memcompare. Using GDB,
+I realized the text segment actually had the parameter we needed (pwn3d) in memory already,
+so I just passed the address of the text segment (which isn't a stack address) as a parameter.
 
 
 --[ 0x4 Flag 4
+Extra credit attempted: making the payload stack independent.
+I noticed the register %ecx pointed to the beginning of the buffer (or around that point), so I
+looked for a jmp %ecx command in memory. I found one in the dynamic section and calculated the address
+so I was able to pass it in as the overwritten value to the return instruction pointer.
 
 
 --[ 0x5 Flag 5
+No comments
 
 
 --[ 0x6 Flag 6
+No comments
 
 
 --[ 0x7 Flag 7
+I removed the first null byte in the push instruction by moving a larger value (than what we wanted to push)
+into a register, subtracting a smaller value, and pushing the result into the stack. All of these values were
+manipulated so they contained no null bytes.
+
+I removed the second null byte by removing the push/pop instructions and instead swapping the register contents
+with another register (that only contained 0's)
 
 
