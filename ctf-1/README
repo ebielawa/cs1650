@@ -12,7 +12,7 @@
 
 Name:		Ed Bielawa
 Login:		ebielawa
-Hostname:	cslab1b
+Hostname:	daisy
 
 --[ 0x1 Flag 1
 No comments
@@ -48,6 +48,9 @@ No comments
 I removed the first null byte in the push instruction by moving a larger value (than what we wanted to push)
 into a register, subtracting a smaller value, and pushing the result into the stack. All of these values were
 manipulated so they contained no null bytes.
+
+I later discovered that this was actually not triggering the proper exploits because of some manipulation with the
+flags used in subtraction. So I just stored the flags in a register, then restored them after performing the operation.
 
 I removed the second null byte by removing the push/pop instructions and instead swapping the register contents
 with another register (that only contained 0's)
