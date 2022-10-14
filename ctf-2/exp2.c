@@ -25,7 +25,8 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	/* FIXME */
 	/* ------------------------------------	*/
-	"\x68\xEF\xBE\xAD\xDE"
+	"\x68\xEF\xBE\xAD\xDE" // Base pointer gets pushed on first
+	"\x68\xEF\xBE\xAD\xDE" // Then the return address?
 	"\xB8\x27\x00\x00\x00\x0F\x05";
 	/* ------------------------------------	*/
 
