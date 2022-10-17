@@ -25,9 +25,15 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	/* FIXME */
 	/* ------------------------------------	*/
-	"\x68\xEF\xBE\xAD\xDE" // Base pointer gets pushed on first
-	"\x68\xEF\xBE\xAD\xDE" // Then the return address?
-	"\xB8\x27\x00\x00\x00\x0F\x05";
+	"\x6A\x14"	// Push 0x14 (syscall for getpid())
+	"\x58"		// pop into eax
+	"\xCD\x80"	// int 0x80 (syscall!)
+	"\x89\xC3"	// mov eax into ebx (for kill)
+	"\x6A\x0A"	// push 0x0a
+	"\x59"		// pop ecx
+	"\x6a\x25"	// push 0x25
+	"\x58"		// pop eax
+	"\xCD\x80"	// int 0x80 (syscall!)
 	/* ------------------------------------	*/
 
 
