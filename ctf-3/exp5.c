@@ -73,7 +73,7 @@ main(int argc, char **argv)
 	 * sizeof(payload)-1:	ignore the trailing '\0';
 	 *			(strings are NULL terminated)
 	 */
-	write(STDOUT_FILENO, payload, sizeof(payload)-1);
+	//write(STDOUT_FILENO, payload, sizeof(payload)-1);
 
 	/* done; success			*/
 	return EXIT_SUCCESS;
