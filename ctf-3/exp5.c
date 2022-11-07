@@ -24,7 +24,7 @@
 #define RET_ADDR3_OFF (RET_ADDR2_OFF + 8)
 #define RET_ADDR4_OFF (RET_ADDR3_OFF + 4)
 #define DATA2_OFF (RET_ADDR4_OFF + 4)
-#define RET_ADDR5_OFF (RET_ADDR4_OFF + 4)
+#define RET_ADDR5_OFF (DATA2_OFF + 4)
 
 // Debugging offsets
 #define LEAK_OFF 0x000015c4
