@@ -25,7 +25,6 @@
 // Invoke raise in .plt
 
 unsigned char payload[] =
-	unsigned char payload[] =
 	/* ------------------------------------	*/
 	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
