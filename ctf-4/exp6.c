@@ -113,7 +113,7 @@ main(int argc, char **argv)
 	/* DEBUG MODE ONLY: */
 	baddr = 0x41000000;
 	laddr = 0xb7d8d000;
-	staddr = 0xbffdf000;
+	staddr = 0xbffffd98;
 
 	/* For NON-DEBUG MODE ONLY:	*/
 
