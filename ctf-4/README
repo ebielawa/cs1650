@@ -10,20 +10,43 @@
 
 --[ 0x0 whoami
 
-Name:		Brown Hat
-Login:		xyzzy
-Hostname:	cslab##
-
+Name:		Edward Bielawa
+Login:		ebielawa
+Hostname:	cslab00e
 
 --[ 0x1 Flag 1
+
+Please see the attached C file, exp6-flag1.c
+
+To run this exploit, please use "make vcat6_exp1".
+The Makefile has been edited to contain a new command
+that will execute vcat6 appropriately while piping in
+raw input from exp6-flag1.
 
 
 --[ 0x2 Flag 2
 
+Please see the attached C file, exp6-flag2.c
+
+To run this exploit, please use "make vcat6_exp2".
+The Makefile has been edited to contain a new command
+that will execute vcat6 appropriately while piping in
+raw input from exp6-flag2.
 
 --[ 0x3 Flag 3
 
+Please see the attached C file, exp6-flag3.c
+
+To run this exploit, please use "make vcat6_exp3".
+The Makefile has been edited to contain a new command
+that will execute vcat6 appropriately while piping in
+raw input from exp6-flag3.
 
 --[ 0x3 Flag 4
 
+Please see the attached C file, exp6-flag4.c
 
+To run this exploit, please use "make vcat6_exp4".
+The Makefile has been edited to contain a new command
+that will execute vcat6 appropriately while piping in
+raw input from exp6-flag4.
