@@ -23,6 +23,37 @@ vcat6_dbg: vcat6 exp6
 vcat6_exp: vcat6 exp6 $(FIFO)
 	(trap '' PIPE; ./exp6 < $(FIFO) | $(RUNAS) $(ENV) ./$< > $(FIFO))
 
+# Test exploits
+# exploit `vcat6' with `flag1'
+vcat6_exp1: vcat6 exp6-flag1 $(FIFO)
+	(trap '' PIPE; ./exp6-flag1 < $(FIFO) | $(RUNAS) $(ENV) ./$< > $(FIFO))
+
+# exploit `vcat6' with `flag2'
+vcat6_exp2: vcat6 exp6-flag2 $(FIFO)
+	(trap '' PIPE; ./exp6-flag2 < $(FIFO) | $(RUNAS) $(ENV) ./$< > $(FIFO))
+
+# exploit `vcat6' with `flag3'
+vcat6_exp3: vcat6 exp6-flag3 $(FIFO)
+	(trap '' PIPE; ./exp6-flag3 < $(FIFO) | $(RUNAS) $(ENV) ./$< > $(FIFO))
+
+# exploit `vcat6' with `flag4'
+vcat6_exp4: vcat6 exp6-flag4 $(FIFO)
+	(trap '' PIPE; ./exp6-flag4 < $(FIFO) | $(RUNAS) $(ENV) ./$< > $(FIFO))
+
+# Test exploit building
+# build the (test) exploit(s)
+exp6-flag1: exp6-flag1.c
+	$(CC) $(CFLAGS) $< -o $@
+
+exp6-flag2: exp6-flag2.c
+	$(CC) $(CFLAGS) $< -o $@
+
+exp6-flag3: exp6-flag3.c
+	$(CC) $(CFLAGS) $< -o $@
+
+exp6-flag4: exp6-flag4.c
+	$(CC) $(CFLAGS) $< -o $@
+
 # build the exploit
 exp6: exp6.c
 	$(CC) $(CFLAGS) $< -o $@
